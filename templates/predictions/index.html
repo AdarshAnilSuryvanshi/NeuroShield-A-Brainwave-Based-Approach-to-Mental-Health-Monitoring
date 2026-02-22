@@ -1,0 +1,141 @@
+<!-- 
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>EEG Depression Detection - Version 1</title>
+</head>
+<body style="font-family: Arial, sans-serif; max-width: 900px; margin: 40px auto;">
+
+  <h2>EEG Depression Detection (Version 1)</h2>
+
+  <p>
+    Enter <b>{{ expected_features }}</b> numeric features (comma-separated or newline-separated).
+    {% if n_received %}
+      <br/>You provided: <b>{{ n_received }}</b> values.
+    {% endif %}
+  </p>
+
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Predict</button>
+  </form>
+
+  {% if error %}
+    <div style="margin-top: 20px; padding: 12px; border: 1px solid #cc0000; color: #cc0000;">
+      <b>Error:</b> {{ error }}
+    </div>
+  {% endif %}
+
+  {% if prediction_text %}
+    <div style="margin-top: 20px; padding: 12px; border: 1px solid #1a7f37;">
+      <h3 style="margin: 0;">Prediction: {{ prediction_text }}</h3>
+      <p style="margin: 8px 0 0 0;">
+        Label: <b>{{ prediction_label }}</b> (0 = Healthy, 1 = MDD)
+      </p>
+
+      <p style="margin: 8px 0 0 0;">
+        MDD Probability:
+        {% if probability is not None %}
+          <b>{{ probability|floatformat:4 }}</b>
+        {% else %}
+          <b>N/A</b> (model has no predict_proba)
+        {% endif %}
+      </p>
+    </div>
+  {% endif %}
+
+  <hr style="margin-top: 30px;" />
+  <p style="color: #555;">
+    Note: Version 1 takes direct numeric features. Later versions will upload CSV (v1.5) and EDF (v2).
+  </p>
+
+</body>
+</html>
+
+
+
+
+Version 1.5 
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>EEG Depression Detection - Version 1.5</title>
+</head>
+<body style="font-family: Arial, sans-serif; max-width: 900px; margin: 40px auto;">
+
+  <h2>EEG Depression Detection (Version 1.5)</h2>
+
+  <p>
+    Upload a CSV containing <b>{{ expected_features }}</b> numeric features.
+    <br/>
+    Supported formats:
+    <ul>
+      <li>Single row with 80 columns</li>
+      <li>Single column with 80 rows</li>
+    </ul>
+    {% if n_received %}
+      You provided: <b>{{ n_received }}</b> values.
+    {% endif %}
+  </p>
+
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Predict</button>
+  </form>
+
+  {% if error %}
+    <div style="margin-top: 20px; padding: 12px; border: 1px solid #cc0000; color: #cc0000;">
+      <b>Error:</b> {{ error }}
+    </div>
+  {% endif %}
+
+  {% if prediction_text %}
+    <div style="margin-top: 20px; padding: 12px; border: 1px solid #1a7f37;">
+      <h3 style="margin: 0;">Prediction: {{ prediction_text }}</h3>
+      <p style="margin: 8px 0 0 0;">
+        Label: <b>{{ prediction_label }}</b> (0 = Healthy, 1 = MDD)
+      </p>
+
+      <p style="margin: 8px 0 0 0;">
+        MDD Probability:
+        {% if probability is not None %}
+          <b>{{ probability|floatformat:4 }}</b>
+        {% else %}
+          <b>N/A</b>
+        {% endif %}
+      </p>
+    </div>
+  {% endif %}
+
+  <hr style="margin-top: 30px;" />
+  <p style="color: #555;">
+    Next: Version 2 will accept EDF files and automatically extract features.
+  </p>
+
+</body>
+</html>
+
+--> 
+
+
+<h1>EEG Depression Detection (Version 2)</h1>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    {{ form }}
+
+    <button type="submit">Predict</button>
+</form>
+
+
+{% if result %}
+    <h2>Prediction: {{ result.label }}</h2>
+    <p>Probability: {{ result.probability }}</p>
+{% endif %}
