@@ -99,7 +99,7 @@ def home(request):
 
 
 """
-
+"""
 import os
 from django.shortcuts import render
 from .forms import EDFUploadForm
@@ -143,3 +143,71 @@ def index(request):
         "form": form,
         "result": result
     })
+"""
+from django.shortcuts import render
+from .forms import EDFUploadForm
+
+from ml.models import EEGUpload, PredictionResult
+from ml.inference import predict_from_edf
+
+
+def index(request):
+    result = None
+    upload_id = None
+    error = None
+    form = EDFUploadForm()
+
+    if request.method == "POST":
+        form = EDFUploadForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            edf_file = request.FILES.get("edf_file")
+
+            if not edf_file:
+                error = "No EDF file was uploaded."
+            else:
+                upload = EEGUpload.objects.create(
+                    file=edf_file,
+                    original_name=edf_file.name,
+                    status="uploaded",
+                )
+
+                try:
+                    pred = predict_from_edf(upload.file.path)
+
+                    PredictionResult.objects.update_or_create(
+                        upload=upload,
+                        defaults={
+                            "predicted_label": pred["label"],
+                            "prediction_int": pred["prediction"],
+                            "probability": pred["probability"],
+                            "features_json": pred["summary"],
+                        }
+                    )
+
+                    upload.status = "processed"
+                    upload.save()
+
+                    upload_id = upload.id
+                    result = {
+                        "label": pred["label"],
+                        "probability": pred["probability"],
+                        "prediction": pred["prediction"],
+                        "summary": pred["summary"],
+                    }
+
+                except Exception as e:
+                    upload.status = "failed"
+                    upload.save()
+                    error = str(e)
+
+    return render(
+        request,
+        "predictions/index.html",
+        {
+            "form": form,
+            "result": result,
+            "upload_id": upload_id,
+            "error": error,
+        },
+    )

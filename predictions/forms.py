@@ -25,7 +25,7 @@ class CSVUploadForm(forms.Form):
 
 
 """
-
+"""
 from django import forms
 
 
@@ -33,4 +33,9 @@ class EDFUploadForm(forms.Form):
     edf_file = forms.FileField(
         label="Upload EDF File",
         widget=forms.FileInput(attrs={"accept": ".edf"})
-    )
+    )"""
+
+from django import forms
+
+class EDFUploadForm(forms.Form):
+    edf_file = forms.FileField(label="Upload EDF File")

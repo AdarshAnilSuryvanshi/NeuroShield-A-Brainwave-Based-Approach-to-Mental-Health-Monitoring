@@ -121,7 +121,6 @@ Version 1.5
 </body>
 </html>
 
---> 
 
 
 <h1>EEG Depression Detection (Version 2)</h1>
@@ -139,3 +138,66 @@ Version 1.5
     <h2>Prediction: {{ result.label }}</h2>
     <p>Probability: {{ result.probability }}</p>
 {% endif %}
+
+
+{% if result %}
+  <h3>Prediction Result</h3>
+  <p><strong>Label:</strong> {{ result.label }}</p>
+  <p><strong>Probability:</strong> {{ result.probability }}</p>
+  <p><strong>Upload ID:</strong> {{ upload_id }}</p>
+
+  <h4>Feature Summary</h4>
+  <p>Count: {{ result.summary.feature_count }}</p>
+  <p>Mean: {{ result.summary.feature_mean }}</p>
+  <p>Std: {{ result.summary.feature_std }}</p>
+  <p>Min: {{ result.summary.feature_min }}</p>
+  <p>Max: {{ result.summary.feature_max }}</p>
+
+  <p>Use these URLs after upload:</p>
+  <ul>
+    <li>/ml/report/{{ upload_id }}/</li>
+    <li>/ml/compare/{{ upload_id }}/</li>
+    <li>POST /ml/chat/{{ upload_id }}/ with JSON body: {"question":"Am I depressed?"}</li>
+  </ul>
+{% endif %}
+
+{% if error %}
+  <p style="color:red;"><strong>Error:</strong> {{ error }}</p>
+{% endif %}
+
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NeuroShield</title>
+</head>
+<body>
+    <h1>NeuroShield EEG Depression Detection</h1>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Upload and Predict</button>
+    </form>
+
+    {% if result %}
+        <h2>Prediction Result</h2>
+        <p><strong>Label:</strong> {{ result.label }}</p>
+        <p><strong>Probability:</strong> {{ result.probability }}</p>
+        <p><strong>Upload ID:</strong> {{ upload_id }}</p>
+
+        <h3>Feature Summary</h3>
+        <p>Count: {{ result.summary.feature_count }}</p>
+        <p>Mean: {{ result.summary.feature_mean }}</p>
+        <p>Std: {{ result.summary.feature_std }}</p>
+        <p>Min: {{ result.summary.feature_min }}</p>
+        <p>Max: {{ result.summary.feature_max }}</p>
+    {% endif %}
+
+    {% if error %}
+        <h2 style="color:red;">Error</h2>
+        <p>{{ error }}</p>
+    {% endif %}
+</body>
+</html>
