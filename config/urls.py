@@ -7,6 +7,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("predictions.urls")),
     path("ml/", include("ml.urls")),
+    path("ml/stage4/", include("ml.stage4_urls")), 
 ]
 
 if settings.DEBUG:
