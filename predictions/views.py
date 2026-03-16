@@ -144,7 +144,12 @@ def index(request):
         "result": result
     })
 """
+import json
 from django.shortcuts import render
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth import authenticate, get_user_model
+from django.contrib.auth.models import User
 from .forms import EDFUploadForm
 
 from ml.models import EEGUpload, PredictionResult
@@ -211,3 +216,127 @@ def index(request):
             "error": error,
         },
     )
+
+
+@csrf_exempt
+def api_register(request):
+    if request.method != "POST":
+        return JsonResponse({"error": "Only POST allowed"}, status=405)
+
+    try:
+        data = json.loads(request.body.decode("utf-8"))
+    except Exception:
+        return JsonResponse({"error": "Invalid JSON body"}, status=400)
+
+    email = data.get("email", "").strip()
+    name = data.get("name", "").strip()
+    password = data.get("password", "").strip()
+
+    if not email or not password:
+        return JsonResponse({"error": "email and password required"}, status=400)
+
+    UserModel = get_user_model()
+    if UserModel.objects.filter(email=email).exists():
+        return JsonResponse({"error": "User already exists"}, status=400)
+
+    user = UserModel.objects.create_user(username=email, email=email, password=password, first_name=name)
+    return JsonResponse({"user": {"email": user.email, "name": user.first_name}})
+
+
+@csrf_exempt
+def api_login(request):
+    if request.method != "POST":
+        return JsonResponse({"error": "Only POST allowed"}, status=405)
+
+    try:
+        data = json.loads(request.body.decode("utf-8"))
+    except Exception:
+        return JsonResponse({"error": "Invalid JSON body"}, status=400)
+
+    email = data.get("email", "").strip()
+    password = data.get("password", "").strip()
+
+    if not email or not password:
+        return JsonResponse({"error": "email and password required"}, status=400)
+
+    user = authenticate(request, username=email, password=password)
+    if user is None:
+        return JsonResponse({"error": "Invalid credentials"}, status=401)
+
+    return JsonResponse({"user": {"email": user.email, "name": user.first_name}})
+
+
+@csrf_exempt
+def api_upload_eeg(request):
+    if request.method != "POST":
+        return JsonResponse({"error": "Only POST allowed"}, status=405)
+
+    edf_file = request.FILES.get("edf_file")
+    if not edf_file:
+        return JsonResponse({"error": "No edf_file provided"}, status=400)
+
+    upload = EEGUpload.objects.create(
+        file=edf_file,
+        original_name=edf_file.name,
+        status="uploaded",
+    )
+
+    try:
+        pred = predict_from_edf(upload.file.path)
+        PredictionResult.objects.update_or_create(
+            upload=upload,
+            defaults={
+                "predicted_label": pred["label"],
+                "prediction_int": pred["prediction"],
+                "probability": pred["probability"],
+                "features_json": pred["summary"],
+            },
+        )
+        upload.status = "processed"
+        upload.save()
+
+        return JsonResponse({
+            "upload_id": upload.id,
+            "file_name": upload.original_name,
+            "status": upload.status,
+            "predicted_label": pred["label"],
+            "prediction": pred["prediction"],
+            "probability": pred["probability"],
+            "summary": pred["summary"],
+        })
+    except Exception as e:
+        upload.status = "failed"
+        upload.save()
+        return JsonResponse({"error": str(e)}, status=500)
+
+
+def api_dashboard(request, user_id=None):
+    uploads = EEGUpload.objects.order_by("-uploaded_at")[:20]
+    data = [
+        {
+            "id": u.id,
+            "file_name": u.original_name,
+            "status": u.status,
+            "predicted_label": getattr(u.prediction, "predicted_label", None),
+            "probability": getattr(u.prediction, "probability", None),
+            "uploaded_at": u.uploaded_at.isoformat(),
+        }
+        for u in uploads
+    ]
+    return JsonResponse({"uploads": data})
+
+
+def api_uploads(request):
+    uploads = EEGUpload.objects.order_by("-uploaded_at")[:100]
+    data = [
+        {
+            "id": u.id,
+            "file_name": u.original_name,
+            "status": u.status,
+            "predicted_label": getattr(u.prediction, "predicted_label", None),
+            "probability": getattr(u.prediction, "probability", None),
+            "uploaded_at": u.uploaded_at.isoformat(),
+        }
+        for u in uploads
+    ]
+    return JsonResponse(data, safe=False)
