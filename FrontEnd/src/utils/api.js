@@ -24,7 +24,25 @@ const api = {
   }).then(r => r.json()),
 
   // ML endpoints
-  getReport: (uploadId) => fetch(`${BASE_URL}/ml/report/${uploadId}/`).then(r => r.json()),
+  getReport: (uploadId) =>
+  fetch(`${BASE_URL}/ml/stage5/report/${uploadId}/`).then((r) => r.json()),
+
+getVisualization: (uploadId) =>
+  fetch(`${BASE_URL}/ml/stage5/analyze/${uploadId}/`, {
+    method: "POST",
+  }).then((r) => r.json()),
+
+chat: (uploadId, question) =>
+  fetch(`${BASE_URL}/ml/stage5/chat/${uploadId}/`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ question }),
+  }).then((r) => r.json()),
+
+  getCompare: (uploadId) =>
+  fetch(`${BASE_URL}/ml/stage5/compare/${uploadId}/`).then((r) => r.json()),
+
+ /* getReport: (uploadId) => fetch(`${BASE_URL}/ml/report/${uploadId}/`).then(r => r.json()),
 
   getVisualization: (uploadId) => fetch(`${BASE_URL}/ml/visualization/${uploadId}/`).then(r => r.json()),
 
@@ -37,6 +55,7 @@ const api = {
   getDashboard: (userId) => fetch(`${BASE_URL}/api/dashboard/${userId || ''}`).then(r => r.json()),
 
   getUserUploads: () => fetch(`${BASE_URL}/api/uploads/`).then(r => r.json()),
+  */
 };
 
 export default api;
