@@ -1,4 +1,6 @@
 // All backend API endpoints mapped from Django views
+// const BASE_URL = process.env.REACT_APP_API_URL || 'https://orange-umbrella-vp9w79g67whpgvx-8000.app.github.dev';
+
 const BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
 
 const api = {
