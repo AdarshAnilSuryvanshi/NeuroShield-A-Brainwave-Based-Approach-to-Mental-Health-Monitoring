@@ -1,11 +1,5 @@
 from django.urls import path
-
-from ml.stage5.stage5_api import (
-    stage5_analyze,
-    stage5_report,
-    stage5_compare,
-    stage5_chat,
-)
+from ml.stage5.stage5_api import stage5_analyze, stage5_report, stage5_compare, stage5_chat
 
 urlpatterns = [
     path("analyze/<int:upload_id>/", stage5_analyze, name="stage5-analyze"),

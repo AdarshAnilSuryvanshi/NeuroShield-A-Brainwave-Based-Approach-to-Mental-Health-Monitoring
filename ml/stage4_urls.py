@@ -1,11 +1,5 @@
 from django.urls import path
-
-from .stage4_api import (
-    stage4_analyze,
-    stage4_report,
-    stage4_compare,
-    stage4_chat,
-)
+from .stage4_api import stage4_analyze, stage4_report, stage4_compare, stage4_chat
 
 urlpatterns = [
     path("analyze/<int:upload_id>/", stage4_analyze, name="stage4-analyze"),

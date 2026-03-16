@@ -32,3 +32,4 @@ tqdm==4.67.3
 tzdata==2025.3
 urllib3==2.6.3
 langgraph==0.0.20
+django-cors-headers
