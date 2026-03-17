@@ -7,7 +7,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("predictions.urls")),
     path("ml/", include("ml.urls")),
-    path("ml/stage4/", include("ml.stage4_urls")), 
+    # path("ml/stage4/", include("ml.stage4_urls")), 
     path("ml/stage5/", include("ml.stage5.stage5_urls")),
 ]   
 

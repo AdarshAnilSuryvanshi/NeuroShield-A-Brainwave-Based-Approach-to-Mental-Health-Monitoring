@@ -1,9 +1,9 @@
 import requests
 
-url = "http://127.0.0.1:8000/ml/stage5/analyze/9/"
+url = "http://127.0.0.1:8000/ml/stage5/chat/3/"
 data = {
 
-  "question": "What does this prediction mean for my mental stability and what should I do next?"
+  "question": "What is the risk level?  Is this case high risk?  Should this case be escalated?  Why is the system marking high risk?"
 }
 
 
