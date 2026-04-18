@@ -1,0 +1,262 @@
+NEUROSHIELD STAGE 5 CHAT AGENT – COMPLETE QUESTION CAPABILITY GUIDE
+
+This document lists: 1. Types of questions the agent can answer 2.
+Number of categories (N types) 3. Example formats of questions 4.
+Questions it will NOT answer 5. How the agent interprets questions
+
+  --------------------------------
+  TOTAL QUESTION TYPES SUPPORTED
+  --------------------------------
+
+The NeuroShield Stage 5 agent supports approximately:
+
+18 Major Question Categories
+
+Across these categories it can understand roughly:
+
+120+ Natural Language Question Variations
+
+The system works using intent classification and context from: - Upload
+metadata - Prediction result - Feature summary - Report output -
+Comparison results - History - Trend analysis - Confidence estimation -
+Risk assessment - Recommendations
+
+  ------------------------------------------------------------
+  1. PREDICTION QUESTIONS
+  ------------------------------------------------------------
+  What the agent explains: Prediction label, probability
+  score, interpretation
+
+  Example formats:
+
+  What is the current prediction? Is this upload predicted as
+  depressed?
+  What is the probability score? 
+  What does this prediction mean? 
+  Explain the depression prediction. Is the
+  patient predicted as healthy or MDD?
+  What does the probability indicate? 
+  Why did the model predict MDD? 
+  Explain this result.
+  ------------------------------------------------------------
+
+  2. FEATURE QUESTIONS
+
+ What features were extracted? Explain EEG features used for prediction.
+ What is the feature count? What is the feature mean?
+ What is the feature standard deviation? 
+ What is the minimum feature value? 
+ What is the maximum feature value? 
+ What does the feature summary indicate?
+
+  ---------------------
+  3. REPORT QUESTIONS
+  ---------------------
+
+Show the report summary. 
+Explain the report. 
+What does the report say?
+Summarize this EEG upload report.
+Give me the report explanation. 
+What insights are present in the report?
+
+  -------------------------
+  4. COMPARISON QUESTIONS
+  -------------------------
+
+Compare this upload with the previous upload. What changed from last
+upload?
+Is the probability higher than before? 
+Did the diagnosis change?
+What is the difference between the two uploads?
+Explain the change from previous EEG.
+
+  --------------------
+  5. TREND QUESTIONS
+  --------------------
+
+What trend do you observe?
+Is the condition improving? 
+Is the condition worsening?
+Is the patient stable? 
+Show probability trend. 
+Explain monitoring progression.
+
+  ----------------------
+  6. HISTORY QUESTIONS
+  ----------------------
+
+Show upload history. 
+What previous records exist?
+How many uploads are available?
+What previous conversations are stored? Show previous results.
+
+  -------------------------
+  7. CONFIDENCE QUESTIONS
+  -------------------------
+
+How reliable is this prediction?
+What is the confidence score? 
+Can this prediction be trusted? 
+Is the model uncertain? 
+How confident is the system?
+
+  -----------------------------
+  8. SIGNAL QUALITY QUESTIONS
+  -----------------------------
+
+What is the signal quality?
+ Is the EEG recording reliable?
+ Is there artifact detected? 
+Is the EEG usable for analysis? 
+Should the recording be repeated?
+
+  ------------------------------
+  9. RISK ASSESSMENT QUESTIONS
+  ------------------------------
+
+What is the risk level? 
+Is this case high risk? 
+Should this case be escalated? 
+Why is the system marking high risk?
+Explain the risk assessment.
+
+  ------------------------------
+  10. RECOMMENDATION QUESTIONS
+  ------------------------------
+
+What should the user do next? 
+Give next step recommendations. Should monitoring continue?
+Should specialist consultation be considered? 
+How should this result be interpreted?
+
+  --------------------------------
+  11. MENTAL STABILITY QUESTIONS
+  --------------------------------
+
+What does this result say about mental stability?
+Is the patient mentally stable? Is depression risk increasing? Explain mental condition
+indicators.
+
+  ------------------------------
+  12. EXPLAINABILITY QUESTIONS
+  ------------------------------
+
+Why did the model predict this result? What factors influenced
+prediction?
+What are the top explainability points? Which features
+influenced the decision?
+
+  -----------------------
+  13. DATASET QUESTIONS
+  -----------------------
+
+What input file is analyzed? 
+What dataset is used for this upload? 
+What data type does the system analyze? 
+Explain the EEG input data.
+
+  -----------------------
+  14. PROJECT QUESTIONS
+  -----------------------
+
+What is NeuroShield?
+Explain this project. How does NeuroShield work?
+What is the pipeline of the system? What is unique about this system?
+Explain Stage 5 system architecture.
+
+  -------------------------------
+  15. SYSTEM WORKFLOW QUESTIONS
+  -------------------------------
+
+How does EEG become a prediction? Explain feature extraction pipeline.
+How does the model process data? Explain the prediction workflow.
+
+  --------------------------
+  16. MONITORING QUESTIONS
+  --------------------------
+
+How does long-term monitoring work? How does the system track mental
+health progression? How can multiple EEG uploads be analyzed?
+
+  -------------------------------------
+  17. GENERAL MENTAL HEALTH QUESTIONS
+  -------------------------------------
+
+What is depression? What causes depression? What are symptoms of
+depression? What are coping strategies for stress? How does anxiety
+affect mental health? What is emotional stability?
+
+Important: These answers are informational only and not clinical advice.
+
+  -------------------------------
+  18. SYSTEM OVERVIEW QUESTIONS
+  -------------------------------
+
+Give complete case summary. Explain the entire analysis. What is the
+overall system result? Provide full system overview.
+
+  -------------------------------------
+  QUESTIONS THE AGENT WILL NOT ANSWER
+  -------------------------------------
+
+The system intentionally avoids answering certain types of questions.
+
+1.  Medical diagnosis
+
+Examples: Am I clinically depressed? Do I have a mental illness?
+Diagnose my condition.
+
+Reason: The system is not a licensed medical diagnostic tool.
+
+------------------------------------------------------------------------
+
+2.  Medication advice
+
+Examples: Which antidepressant should I take? What medicine should I
+use? Should I stop my medication?
+
+Reason: Medication decisions must come from healthcare professionals.
+
+------------------------------------------------------------------------
+
+3.  Emergency or crisis decisions
+
+Examples: I want to harm myself, what should I do? Should I end my life?
+How can I commit suicide?
+
+Reason: These require immediate professional intervention.
+
+The system should instead encourage seeking emergency help.
+
+------------------------------------------------------------------------
+
+4.  Personal therapy decisions
+
+Examples: Should I leave therapy? Should I stop counseling?
+
+Reason: These are clinical decisions.
+
+------------------------------------------------------------------------
+
+5.  Non-related topics
+
+Examples: Who won the football match? Tell me a joke. What is the
+weather today?
+
+Reason: The system is a domain-specific assistant for NeuroShield.
+
+  ---------------
+  FINAL SUMMARY
+  ---------------
+
+NeuroShield Stage 5 Chat Agent acts as:
+
+A Mental Health Monitoring Assistant
+
+Capabilities: - Prediction interpretation - EEG feature explanation -
+Trend monitoring - Risk analysis - Recommendation support - System
+explanation - Educational mental health information
+
+Limitations: - No clinical diagnosis - No medication advice - No crisis
+handling
