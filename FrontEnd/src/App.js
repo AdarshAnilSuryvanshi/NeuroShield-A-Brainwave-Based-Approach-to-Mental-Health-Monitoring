@@ -11,7 +11,7 @@ import ChatbotPage from './pages/ChatbotPage';
 import ReportPage from './pages/ReportPage';
 import Navbar from './components/Navbar';
 
-// Auth context
+  // Auth context
 export const AuthContext = createContext(null);
 export const useAuth = () => useContext(AuthContext);
 

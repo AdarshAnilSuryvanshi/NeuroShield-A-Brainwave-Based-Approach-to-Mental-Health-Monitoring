@@ -25,7 +25,8 @@ SECRET_KEY = "django-insecure-jv)6rd^vj)g3*2yqu)!y^oxev#g!*3vm$rda0h%i(t5du3okx_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["3.229.113.162", "localhost", "127.0.0.1"]
+
 
 
 # Application definition
@@ -56,6 +57,7 @@ MIDDLEWARE = [
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
+    "https://last.d2lhu45y5djvp4.amplifyapp.com",
 ]
 CORS_ALLOW_ALL_ORIGINS = True
 
